@@ -1,0 +1,71 @@
+[user]
+	name = jamieshark
+	email = jchung@atlassian.com
+[credential]
+	helper = osxkeychain
+
+[alias]
+  # Show verbose output about tags, branches or remotes
+  tags = tag -l
+  branches = branch -a
+  remotes = remote -v
+  co = checkout -b
+
+  # Pretty log output
+  hist = log --graph --pretty=format:'%Cred%h%Creset %s%C(yellow)%d%Creset %Cgreen(%cr)%Creset [%an]' --abbrev-commit --date=relative
+  view = log --graph --oneline --decorate --boundary --all HEAD
+  
+  # removes any local branches that have been deleted from remote  
+  prune = fetch --prune
+
+  # pulls down changes, prunes remote-tracking branches
+  up = !git pull --rebase --prune $@ && git submodule update --init --recursive
+  
+  # adds untracked files, adds tracked files commit
+  wip = !git add . && commit -am "WIP"
+
+  # resets previous commit (to be used typically after wip commit)
+  undo = reset HEAD~1 --mixed
+
+  # run from master to clean up merged branches
+  bclean = "!f() { git checkout ${1-master} && git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs git branch -d; }; f"
+  
+  # switches to master, runs git up, deletes all branches merged into master (run after PR is merged)
+  bdone = "!f() { git checkout ${1-master} && git up && git bclean ${1-master}; }; f"
+  
+  # find a file path
+  find = !git ls-files | grep -i
+
+  # search codebase for a string
+  grep = grep -Ii
+  
+  # push it real good
+  pushit = !echo 'Ahh push it' && git push -u origin $(git branch-name) && echo 'PUSH IT REAL GOOD 😎'
+
+
+[color]
+  # Use colors in Git commands that are capable of colored output when outputting to the terminal
+  ui = auto
+[color "branch"]
+  current = yellow reverse
+  local = yellow
+  remote = green
+[color "diff"]
+  meta = yellow bold
+  frag = magenta bold
+  old = red bold
+  new = green bold
+[color "status"]
+  added = yellow
+  changed = green
+  untracked = cyan
+
+# Use `origin` as the default remote on the `master` branch in all cases
+[branch "master"]
+  remote = origin
+  merge = refs/heads/master
+
+[merge]
+  conflictstyle = diff3
+
+
