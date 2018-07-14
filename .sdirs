@@ -1,0 +1,4 @@
+export DIR_Sites="$HOME/Sites"
+export DIR_trello="$HOME/Sites/trello"
+export DIR_tweb="$HOME/Sites/trello/web"
+export DIR_tserver="$HOME/Sites/trello/server"

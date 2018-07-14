@@ -1,5 +1,8 @@
 source ~/.bash_prompt
 
+# https://github.com/huyng/bashmarks
+source ~/.local/bin/bashmarks.sh
+
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
 # * ~/.extra can be used for other settings you don’t want to commit.
@@ -68,7 +71,18 @@ createBranch(){
 	git checkout -b $1 origin/master;
 }
 
-alias g='git'
+function gmb {
+  curr_branch_name=$(git branch | grep \* | cut -c 3-);
+  if [ -z $(git branch | cut -c 3- | grep -x $1) ]; then
+    git branch -m $curr_branch_name $1
+  else
+    temp_branch_name=$1-old-$RANDOM;
+    echo target branch name already exists, renaming to $temp_branch_name
+    git branch -m $1 $temp_branch_name
+    git branch -m $curr_branch_name $1
+  fi
+}
+
 alias gs='git status'
 alias gb='git branch'
 alias gcm='git commit -am'
