@@ -3,6 +3,8 @@
 	email = jchung@atlassian.com
 [credential]
 	helper = osxkeychain
+[core]
+  editor = code --wait
 
 [alias]
   # Show verbose output about tags, branches or remotes
@@ -19,7 +21,8 @@
   prune = fetch --prune
 
   # pulls down changes, prunes remote-tracking branches
-  up = !git pull --rebase --prune $@ && git submodule update --init --recursive
+  # up = !git pull --rebase --prune $@ && git submodule update --init --recursive
+  up = !git pull --rebase --prune $@
   
   # adds untracked files, adds tracked files commit
   wip = !git add . && commit -am "WIP"
@@ -29,6 +32,9 @@
 
   # run from master to clean up merged branches
   bclean = "!f() { git checkout ${1-master} && git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs git branch -d; }; f"
+
+  # run from branch to rebase off of master
+  bup = "!git fetch origin && git rebase origin/master"
   
   # switches to master, runs git up, deletes all branches merged into master (run after PR is merged)
   bdone = "!f() { git checkout ${1-master} && git up && git bclean ${1-master}; }; f"
@@ -41,7 +47,23 @@
   
   # push it real good
   pushit = !echo 'Ahh push it' && git push -u origin $(git branch-name) && echo 'PUSH IT REAL GOOD 😎'
-
+  pusheen = !git push -u origin $(git branch-name) && echo -e "\
+    ▐▀▄       ▄▀▌   ▄▄▄▄▄▄▄             \n\
+    ▌▒▒▀▄▄▄▄▄▀▒▒▐▄▀▀▒██▒██▒▀▀▄          \n\
+   ▐▒▒▒▒▀▒▀▒▀▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▀▄        \n\
+   ▌▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▄▒▒▒▒▒▒▒▒▒▒▒▒▀▄      \n\
+ ▀█▒▒▒█▌▒▒█▒▒▐█▒▒▒▀▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▌     \n\
+ ▀▌▒▒▒▒▒▒▀▒▀▒▒▒▒▒▒▀▀▒▒▒▒▒▒▒▒▒▒▒▒▒▒▐   ▄▄\n\
+ ▐▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▌▄█▒█\n\
+ ▐▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█▒█▀ \n\
+ ▐▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█▀   \n\
+ ▐▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▌    \n\
+  ▌▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▐     \n\
+  ▐▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▌     \n\
+   ▌▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▐      \n\
+   ▐▄▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▄▌      \n\
+     ▀▄▄▀▀▀▀▀▄▄▀▀▀▀▀▀▀▄▄▀▀▀▀▀▄▄▀  \n\
+"'
 
 [color]
   # Use colors in Git commands that are capable of colored output when outputting to the terminal

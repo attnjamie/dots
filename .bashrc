@@ -3,6 +3,11 @@ source ~/.bash_prompt
 # https://github.com/huyng/bashmarks
 source ~/.local/bin/bashmarks.sh
 
+# nvm
+
+export NVM_DIR="$HOME/.nvm"
+  . "/usr/local/opt/nvm/nvm.sh"
+
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
 # * ~/.extra can be used for other settings you don’t want to commit.
@@ -30,7 +35,7 @@ alias f='open -a Finder ./'                 # f: Opens current directory in MacO
 alias ~="cd ~"                              # ~: o Home
 
 # https://developer.atlassian.com/blog/2016/02/best-way-to-store-dotfiles-git-bare-repo/
-alias config='/usr/local/bin/git --git-dir=/Users/jchung/.cfg/ --work-tree=/Users/jchung'
+alias dotfiles='/usr/local/bin/git --git-dir=/Users/jchung/.cfg/ --work-tree=/Users/jchung'
 
 #   lr:  Full Recursive Directory Listing
 #   ------------------------------------------
@@ -92,3 +97,6 @@ alias gco=createBranch
 if [ -f ~/.git-completion.bash ]; then
   . ~/.git-completion.bash
 fi
+
+# store config and dot files
+alias config='/usr/bin/git --git-dir=/Users/jchung/.cfg/ --work-tree=/Users/jchung'
