@@ -16,14 +16,14 @@
   # Pretty log output
   hist = log --graph --pretty=format:'%Cred%h%Creset %s%C(yellow)%d%Creset %Cgreen(%cr)%Creset [%an]' --abbrev-commit --date=relative
   view = log --graph --oneline --decorate --boundary --all HEAD
-  
-  # removes any local branches that have been deleted from remote  
+
+  # removes any local branches that have been deleted from remote
   prune = fetch --prune
 
   # pulls down changes, prunes remote-tracking branches
   # up = !git pull --rebase --prune $@ && git submodule update --init --recursive
   up = !git pull --rebase --prune $@
-  
+
   # adds untracked files, adds tracked files commit
   wip = !git add . && commit -am "WIP"
 
@@ -35,16 +35,16 @@
 
   # run from branch to rebase off of master
   bup = "!git fetch origin && git rebase origin/master"
-  
+
   # switches to master, runs git up, deletes all branches merged into master (run after PR is merged)
   bdone = "!f() { git checkout ${1-master} && git up && git bclean ${1-master}; }; f"
-  
+
   # find a file path
   find = !git ls-files | grep -i
 
   # search codebase for a string
   grep = grep -Ii
-  
+
   # push it real good
   pushit = !echo 'Ahh push it' && git push -u origin $(git branch-name) && echo 'PUSH IT REAL GOOD 😎'
 
