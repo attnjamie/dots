@@ -34,7 +34,7 @@
   bclean = "!f() { git checkout ${1-master} && git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs git branch -d; }; f"
 
   # run from branch to rebase off of master
-  bup = "!git fetch origin && git rebase origin/master"
+  bup = pull origin master --rebase
 
   # switches to master, runs git up, deletes all branches merged into master (run after PR is merged)
   bdone = "!f() { git checkout ${1-master} && git up && git bclean ${1-master}; }; f"
