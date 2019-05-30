@@ -1,12 +1,9 @@
 source ~/.bash_prompt
 
+
+
 # https://github.com/huyng/bashmarks
 source ~/.local/bin/bashmarks.sh
-
-# nvm
-
-export NVM_DIR="$HOME/.nvm"
-  . "/usr/local/opt/nvm/nvm.sh"
 
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
@@ -15,6 +12,12 @@ for file in ~/.{path,bash_prompt,exports,aliases,functions,extra}; do
   [ -r "$file" ] && source "$file"
 done
 unset file
+
+# nvm
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 #   finderShowHidden:   Show hidden files in Finder
 #   finderHideHidden:   Hide hidden files in Finder
@@ -100,3 +103,8 @@ fi
 
 # store config and dot files
 alias config='/usr/bin/git --git-dir=/Users/jchung/.cfg/ --work-tree=/Users/jchung'
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
+# Trello Testing Vars
+# export MAILINATOR_TOKEN="44aefebe6937472388b8ded2b63a870d"

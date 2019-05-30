@@ -30,6 +30,9 @@
   # resets previous commit (to be used typically after wip commit)
   undo = reset HEAD~1 --mixed
 
+  # reset unstaged files
+  wipe = !git checkout -- . && git clean -f -d
+
   # run from master to clean up merged branches
   bclean = "!f() { git checkout ${1-master} && git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs git branch -d; }; f"
 
